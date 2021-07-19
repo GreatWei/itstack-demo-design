@@ -7,14 +7,14 @@ import java.lang.reflect.Method;
 
 public class JDKInvocationHandler implements InvocationHandler {
 
-    private ICacheAdapter cacheAdapter;
+    private Object cacheAdapter;
 
-    public JDKInvocationHandler(ICacheAdapter cacheAdapter) {
+    public JDKInvocationHandler(Object cacheAdapter) {
         this.cacheAdapter = cacheAdapter;
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return ICacheAdapter.class.getMethod(method.getName(), ClassLoaderUtils.getClazzByArgs(args)).invoke(cacheAdapter, args);
+        return cacheAdapter.getClass().getMethod(method.getName(), ClassLoaderUtils.getClazzByArgs(args)).invoke(cacheAdapter, args);
     }
 
 }
